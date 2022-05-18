@@ -1,40 +1,74 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
 
-    <groupId>nl.hu.bep</groupId>
-    <artifactId>azuredemo</artifactId>
-    <version>1.0-SNAPSHOT</version>
-    <packaging>war</packaging>
-
-    <properties>
-        <maven.compiler.source>17</maven.compiler.source>
-        <maven.compiler.target>17</maven.compiler.target>
-    </properties>
-
-    <dependencies>
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
-            <version>4.0.1</version>
-        </dependency>
-        <dependency>
-            <groupId>org.glassfish.jersey.containers</groupId>
-            <artifactId>jersey-container-servlet</artifactId>
-            <version>2.35</version>
-        </dependency>
-        <dependency>
-            <groupId>org.glassfish.jersey.inject</groupId>
-            <artifactId>jersey-hk2</artifactId>
-            <version>2.35</version>
-        </dependency>
-        <dependency>
-            <groupId>org.glassfish.jersey.media</groupId>
-            <artifactId>jersey-media-json-jackson</artifactId>
-            <version>2.35</version>
-        </dependency>
-    </dependencies>
-
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">  
+  <modelVersion>4.0.0</modelVersion>  
+  <groupId>nl.hu.bep</groupId>  
+  <artifactId>azuredemo</artifactId>  
+  <version>1.0-SNAPSHOT</version>  
+  <packaging>war</packaging>  
+  <properties> 
+    <maven.compiler.source>17</maven.compiler.source>  
+    <maven.compiler.target>17</maven.compiler.target> 
+  </properties>  
+  <dependencies> 
+    <dependency> 
+      <groupId>javax.servlet</groupId>  
+      <artifactId>javax.servlet-api</artifactId>  
+      <version>4.0.1</version> 
+    </dependency>  
+    <dependency> 
+      <groupId>org.glassfish.jersey.containers</groupId>  
+      <artifactId>jersey-container-servlet</artifactId>  
+      <version>2.35</version> 
+    </dependency>  
+    <dependency> 
+      <groupId>org.glassfish.jersey.inject</groupId>  
+      <artifactId>jersey-hk2</artifactId>  
+      <version>2.35</version> 
+    </dependency>  
+    <dependency> 
+      <groupId>org.glassfish.jersey.media</groupId>  
+      <artifactId>jersey-media-json-jackson</artifactId>  
+      <version>2.35</version> 
+    </dependency> 
+  </dependencies>  
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-war-plugin</artifactId>
+        <version>3.3.1</version>
+      </plugin>
+      <plugin>
+        <groupId>com.microsoft.azure</groupId>
+        <artifactId>azure-webapp-maven-plugin</artifactId>
+        <version>2.5.0</version>
+        <configuration>
+          <schemaVersion>v2</schemaVersion>
+          <subscriptionId>c56ddee8-34b2-44d1-8fdd-f08c201cacc5</subscriptionId>
+          <resourceGroup>BEP1-2022</resourceGroup>
+          <appName>jerseyazurehello</appName>
+          <pricingTier>F1</pricingTier>
+          <region>westeurope</region>
+          <appServicePlanName>free-linux-apps</appServicePlanName>
+          <appServicePlanResourceGroup>free</appServicePlanResourceGroup>
+          <runtime>
+            <os>Linux</os>
+            <javaVersion>Java 17</javaVersion>
+            <webContainer>Tomcat 9.0</webContainer>
+          </runtime>
+          <deployment>
+            <resources>
+              <resource>
+                <directory>${project.basedir}/target</directory>
+                <includes>
+                  <include>*.war</include>
+                </includes>
+              </resource>
+            </resources>
+          </deployment>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
 </project>
