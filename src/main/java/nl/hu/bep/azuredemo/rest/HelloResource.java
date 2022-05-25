@@ -10,7 +10,7 @@ import javax.ws.rs.Path;
 public class HelloResource {
     private HelloService service;
 
-    @Inject
+    @Inject //Deze annotatie is nodig omdat Jersey anders niet weet dat ie aan HK2 moet vragen deze dependency op te lossen.
     public HelloResource(HelloService service){
         this.service = service;
     }
