@@ -6,7 +6,9 @@ import javax.ws.rs.ApplicationPath;
 
 @ApplicationPath("/restservices")
 public class JerseyConfig extends ResourceConfig {
-    public JerseyConfig(){
+    public JerseyConfig() {
+
         packages("nl.hu.bep.azuredemo.rest");
+        register(new ServiceBinder());
     }
 }
